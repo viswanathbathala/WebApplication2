@@ -1,0 +1,67 @@
+﻿@model LicenseManager.Models.ViewModels.LicenseViewModel
+
+@{
+    ViewData["Title"] = "License Summary";
+}
+
+<!-- Ensure you have Bootstrap included in your project -->
+<!-- You can include it in your layout file (e.g., _Layout.cshtml) -->
+<!-- Example: <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" /> -->
+
+<style>
+    h1, h2 {
+        text-align: center;
+        color: blue;
+    }
+
+    .table {
+        width: 100%;
+    }
+</style>
+
+<div class="container mt-5">
+    <h1>License Summary</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <p><strong>Total Licenses:</strong> @Model.TotalLicenses</p>
+        </div>
+        <div class="col-md-4">
+            <p><strong>Active Licenses:</strong> @Model.ActiveLicenses</p>
+        </div>
+        <div class="col-md-4">
+            <p><strong>Expired Licenses:</strong> @Model.ExpiredLicenses</p>
+        </div>
+    </div>
+
+    <h2 class="mt-5">License Details</h2>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Comments</th>
+                <th>Is Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var license in Model.Licenses)
+            {
+                <tr>
+                    <td>@license.Id</td>
+                    <td>@license.Title</td>
+                    <td>@license.StartDate.ToShortDateString()</td>
+                    <td>@license.EndDate.ToShortDateString()</td>
+                    <td>@license.Comments</td>
+                    <td>@license.IsActive </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-controller="Account" asp-action="SendEmail" method="post" class="mt-4">
+        <button type="submit" class="btn btn-primary">Send Emails</button>
+    </form>
+</div>

@@ -1,0 +1,67 @@
+﻿@model License
+
+<div class="row col-md-10 offset-md-1">
+
+    <h1 class="text-primary text-center pt-2">Update</h1>
+
+    <form method="post" asp-controller="Home" asp-action="Update" >
+
+        <div class="border p-2 rounded">
+
+            <p class="text-center">Add a new license</p>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="col-12"></label>
+                <div class="col-md-12">
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartDate" class="col-12"></label>
+                <div class="col-md-12">
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndDate" class="col-12"></label>
+                <div class="col-md-12">
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Comments" class="col-12"></label>
+                <div class="col-md-12">
+                    <input asp-for="Comments" class="form-control" />
+                    <span asp-validation-for="Comments" class="text-danger"></span>
+                </div>
+            </div>
+
+           
+
+            <div class="form-group pt-3">
+                <div class="col-md-6 offset-md-3">
+                    <button class="btn btn-success form-control" type="submit">
+                        Update
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
