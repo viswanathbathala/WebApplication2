@@ -188,7 +188,7 @@ namespace LicenseManager.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnurl = null)
         {
             ViewData["ReturnUrl"] = returnurl;
-            returnurl = returnurl ?? Url.Content("~/");
+            returnurl = returnurl ?? Url.Content("~/Home/Display");
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
@@ -242,7 +242,7 @@ namespace LicenseManager.Controllers
         public async Task<IActionResult> VerifyAuthenticatorCode(VerifyAuthenticatorViewModel model)
         {
 
-            model.ReturnUrl = model.ReturnUrl ?? Url.Content("~/");
+            model.ReturnUrl = model.ReturnUrl ?? Url.Content("~/Home/Display");
             if (!ModelState.IsValid)
             {
                 return View(model);

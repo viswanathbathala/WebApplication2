@@ -73,10 +73,63 @@ namespace LicenseManager.Controllers
                 _db.License.Add(model);
                 _db.SaveChanges();
                 TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction("Display");
             }
             return View(model);
         }
+
+        [Authorize(Roles = SD.Admin)]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var categoryFromDb = _db.License.Find(id);
+            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(License obj)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                _db.License.Update(obj);
+                _db.SaveChanges();
+                //TempData["success"] = "Category updated successfully";
+                return RedirectToAction("Display");
+            }
+            return View(obj);
+        }
+
+        [Authorize(Roles = SD.Admin)]
+       
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int? id)
+        {
+            var obj = _db.License.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.License.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction("Display");
+
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
